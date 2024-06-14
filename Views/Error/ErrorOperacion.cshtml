@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Titulo ="Error con la operacion";
+}
+
+
+<section class=" content-header">
+    <h1>
+        No cuentas con los permisos suficientes
+    </h1>
+
+</section>
+
+<section class=" content">
+    <div class="error-pag">
+
+        <div class="headlin text-red">ERROR</div>
+        <div class="error-content">
+            <h3><i class="fa fa-warning text-red"></i>Sin autorizacion</h3>
+            @if (ViewBag.Accion != "" )
+            {
+                <p>Accion @ViewBag.Accion</p>
+            }
+
+            @if (ViewBag.Pantalla != "" )
+            {
+                <p>Accion @ViewBag.Pantalla</p>
+            }
+
+            @if (ViewBag.msjErrorPermiso != "")
+            {
+                <p>Accion @ViewBag.msjErrorPermiso</p>
+            }
+            
+        </div>
+    </div>
+</section>
