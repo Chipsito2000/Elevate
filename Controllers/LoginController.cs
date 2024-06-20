@@ -71,7 +71,7 @@
             //Si no es asi manda error
             catch (Exception ex)
             {
-                ViewBag.Error = ex.Message; 
+                ViewBag.Error = "No se reconoce el usuario"; 
                 return View();
             }
             

@@ -20,43 +20,131 @@ Body {
 }
 
 @font-face {
-    font-family: 'MiFuentePersonalizada';
-    src: url('Font/Dosis-Bold.tttf') format('tttf'), 
-        url('Font/Dosis-ExtraBold.tttf') format('woff');
+    font-family: 'static';
+    src: url('Font/Dosis-Bold.ttf') format('ttf'), 
+        url('Font/Dosis-ExtraBold.ttf') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Black';
+    src: url('Font/ArchivoBlack-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bold';
+    src: url('Font/IBMPlexSans-Medium.ttf') format('ttf'), 
+         url('Font/IBMPlexSans-Regular.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 .seccion {
     position: absolute;
     top: 50%;
-    left: 47%;
-    padding: 165px;
+    left: 50%;
+    padding: 50px; /* Ajusta el espacio interno de la sección */
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-    border-radius: 56px;
+    border-radius: 16px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
     backdrop-filter: contrast(0.4);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    padding-top: 265px;
+    max-width: 90%; /* Mantén un ancho máximo */
+    width: 600px; /* Ajusta el ancho según sea necesario */
+    min-height: 600px; /* Ajusta la altura mínima */
 }
+    
 
 .Prin {
-    font-family: 'MiFuentePersonalizada', sans-serif; 
-    
+    font-family: static, sans-serif;
+    text-align: center;
+    margin-top: 15%;
 }
 
+.font, .font2 {
+    font-family: Black, sans-serif;
+    text-align: center; /* Centra el texto horizontalmente */
+    margin-bottom: 10px;
+}
 
 .font {
-    position: absolute;
-    top: 89px;
-    align-content: center;
+    font-size: 3em;
 }
 
-.fond2 {
-    position: relative;
-    top: -109px;
-    right: -20px;
+.font2 {
+    font-size: 1.5em;
 }
+
+
+.btn {
+    margin-top: 15px;
+    background-color: black !important; /* Fondo negro */
+    color: white !important; /* Texto blanco */
+    border: none !important; /* Sin borde */
+    margin-top: 15px !important; /* Margen superior */
+    padding: 10px 20px; /* Opcional: Ajusta el relleno */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de la fuente */
+    outline: none !important; /* Elimina el borde del foco al hacer clic */
+}
+.btn:hover {
+    background-color: darkgray !important; /* Cambia el color de fondo al pasar el mouse */
+}
+
+.btn-container {
+    margin-top: 88px; 
+    text-align: center; 
+}
+
+.btn-transparent {
+    background-color: transparent !important; 
+    color: black !important; 
+    border: none !important; 
+    margin: 0 !important; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    outline: none !important; 
+}
+
+    .btn-transparent:hover {
+        background-color: rgba(0, 0, 0, 0.1) !important; /* Opcional: cambia el fondo al pasar el mouse para indicar interactividad */
+    }
+
+
+/* Media Queries pantalla*/
+@media (max-width: 768px) {
+    .seccion {
+        padding: 15px;
+        width: 90%;
+    }
+
+    .font {
+        font-size: 1.5em;
+    }
+
+    .font2 {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .seccion {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .font {
+        font-size: 1.2em;
+    }
+
+    .font2 {
+        font-size: 1em;
+    }
+}
+

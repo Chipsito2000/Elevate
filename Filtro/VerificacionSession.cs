@@ -15,7 +15,7 @@
         /// <summary>
         /// Objeto del modelo usuario
         /// </summary>
-        private Usuario oUsuario;
+        private Usuario? oUsuario;
 
         //Metodo para validar y encapsular la sesion 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
