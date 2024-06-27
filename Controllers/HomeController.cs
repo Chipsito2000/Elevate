@@ -20,7 +20,6 @@ namespace ElevateERP.Controllers
             _logger = logger;
         }
 
-        [Validar_Permiso(idAccion: 14)]
         public ActionResult Index()
         {
             return View();

@@ -1,0 +1,108 @@
+﻿@font-face {
+    font-family: 'Black';
+    src: url('Font/ArchivoBlack-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: Black, sans-serif;
+    transition: margin-left .5s;
+}
+
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: mediumpurple;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px; 
+}
+
+    .sidenav.closed {
+        width: 80px; 
+    }
+
+    .sidenav .logo {
+        padding: 12px;
+        text-align: center;
+    }
+
+        .sidenav .logo img {
+            width: 50%;
+            height: auto;
+            margin-top: -66px;
+        }
+
+    .sidenav a {
+        padding: 18px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: white;
+        display: flex;
+        align-items: center;
+        transition: 0.4s;
+    }
+
+    .sidenav.closed a {
+        padding: 8px 8px;
+        justify-content: center; 
+    }
+
+    .sidenav a img {
+        margin-right: 10px;
+        width: 30px; 
+        height: auto;
+    }
+
+    .sidenav.closed a img {
+        margin-right: 0; 
+    }
+
+    .sidenav a span {
+        display: inline; 
+    }
+
+    .sidenav.closed a span {
+        display: none; 
+    }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 8px;
+        font-size: 29px;
+        margin-top: -23px;
+        color: green;
+    }
+
+    .sidenav a:hover {
+        background-color: deepskyblue;
+    }
+
+.footer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+#main {
+    transition: margin-left .5s; 
+    padding: 16px;
+    margin-left: 250px; 
+}
+
+.sidenav.closed + #main {
+    margin-left: 80px; 
+}
+
+
+

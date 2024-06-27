@@ -1,5 +1,5 @@
 Body {
-    background-image: url('/img/login.jpg');
+    background-image: url('/img/FondoLogin.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -83,17 +83,17 @@ Body {
 
 .btn {
     margin-top: 15px;
-    background-color: black !important; /* Fondo negro */
-    color: white !important; /* Texto blanco */
-    border: none !important; /* Sin borde */
-    margin-top: 15px !important; /* Margen superior */
-    padding: 10px 20px; /* Opcional: Ajusta el relleno */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    font-size: 16px; /* Tamaño de la fuente */
-    outline: none !important; /* Elimina el borde del foco al hacer clic */
+    background-color: black !important;
+    color: white !important; 
+    border: none !important;
+    margin-top: 15px !important; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    outline: none !important; 
 }
 .btn:hover {
-    background-color: darkgray !important; /* Cambia el color de fondo al pasar el mouse */
+    background-color: darkgray !important; 
 }
 
 .btn-container {
@@ -113,7 +113,7 @@ Body {
 }
 
     .btn-transparent:hover {
-        background-color: rgba(0, 0, 0, 0.1) !important; /* Opcional: cambia el fondo al pasar el mouse para indicar interactividad */
+        background-color: rgba(0, 0, 0, 0.1) !important; 
     }
 
 
