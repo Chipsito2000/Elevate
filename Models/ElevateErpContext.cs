@@ -19,6 +19,8 @@ public partial class ElevateErpContext : DbContext
 
     public virtual DbSet<Cliente> Clientes { get; set; }
 
+    public List<Cliente> clientes { get; set; }
+
     public virtual DbSet<Documento> Documentos { get; set; }
 
     public virtual DbSet<Pantalla> Pantallas { get; set; }

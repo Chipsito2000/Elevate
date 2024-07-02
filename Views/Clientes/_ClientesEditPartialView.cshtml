@@ -1,0 +1,58 @@
+﻿@model ElevateERP.Models.Cliente
+
+
+<div class="modal fade" id="editCliente" tabindex="-1" role="dialog" aria-labelledby="editClientelabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editClientelabel">Editar Cliente</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="clientForm" asp-action="Editar" method="post">
+
+                    <input type="hidden" asp-for="Id" id="clienteId" name="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Nombre" class="Control-label"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NEmpresa" class="Control-label"></label>
+                            <input asp-for="NEmpresa" class="form-control" />
+                            <span asp-validation-for="NEmpresa" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="Control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Telefono" class="Control-label"></label>
+                            <input asp-for="Telefono" class="form-control" />
+                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FormaPago" class="Control-label"></label>
+                            <input asp-for="FormaPago" class="form-control" />
+                            <span asp-validation-for="FormaPago" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Cfdi" class="Control-label"></label>
+                            <input asp-for="Cfdi" class="form-control" />
+                            <span asp-validation-for="Cfdi" class="text-danger"></span>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

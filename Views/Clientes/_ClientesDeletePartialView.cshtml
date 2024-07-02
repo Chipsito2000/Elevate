@@ -1,0 +1,32 @@
+﻿@model ElevateERP.Models.Cliente
+
+<div class="modal fade" id="deleteCliente" tabindex="-1" role="dialog" aria-labelledby="deleteClienteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteClienteLabel">Eliminar Cliente</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Eliminar" method="post">
+                   @Html.HiddenFor(model => model.Id)    
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>¿Está seguro que desea eliminar al cliente @Model.Nombre?</p>
+                         
+                                <p><b>Esta acción no se puede deshacer. </b> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-danger" type="submit">Eliminar Cliente</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
