@@ -28,6 +28,8 @@ using Microsoft.EntityFrameworkCore;
 
         public virtual DbSet<Proveedor> Proveedors { get; set; }
 
+        public List<Proveedor> proveedors { get; set; }
+
         public virtual DbSet<Rol> Rols { get; set; }
 
         public virtual DbSet<Usuario> Usuarios { get; set; }

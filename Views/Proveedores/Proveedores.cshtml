@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ElevateERP.Models.Proveedor>
+
+
+@{
+    ViewData["Title"] = "PROVEEDORES";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/ElevateERP.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+
+<h1>PROVEEDORES</h1>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page">Proveedores</a>
+    </li>
+    <li class="nav-item">
+        <div class="btn-container">
+            <p>
+                <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#addProveedor">Proveedor Nuevo</button>
+            </p>
+        </div>
+    </li>
+</ul>
+
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+            <tr class="table-primary align-bottom">
+                <th style=" display: none;">@Html.DisplayNameFor(model => model.Id)</th>
+                <th>Accion</th>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>Empresa</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+                <th>@Html.DisplayNameFor(model => model.Direccion)</th>
+                <th>Forma de Compra</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <button type="button" class="btn edit-button" data-toggle="modal" data-target="#editProveedor" data-id="@item.Id"
+                                data-nombre="@item.Nombre"
+                                data-nempresa="@item.NEmpresa"
+                                data-email="@item.Email"
+                                data-telefono="@item.Telefono"
+                                data-Direccion="@item.Direccion"
+                                data-FormaCompra="@item.FormaCompra"
+                                style="background: none; border: none; padding: 0;">
+                            <img src="~/img/Actualizar.png" alt="Edit" style="width: 24px; height: 24px;">
+                        </button>
+                    </td>
+                    <td class="align-top">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                    <td class="align-top">@Html.DisplayFor(modelItem => item.NEmpresa)</td>
+                    <td class="align-top">@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td class="align-top">@Html.DisplayFor(modelItem => item.Telefono)</td>
+                    <td class="align-top">@Html.DisplayFor(modelItem => item.Direccion)</td>
+                    <td class="align-top">@Html.DisplayFor(modelItem => item.FormaCompra)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@await Html.PartialAsync("_ProveedorAddPartialView", new Proveedor())
+@await Html.PartialAsync("_ProveedorEditPartialView", new Proveedor())
+@* @await Html.PartialAsync("_ProveedorDeletePartialView", new Proveedor())*@
+
+<script>
+    $(document).ready(function () {
+        $('#editProveedor').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Botón que abrió el modal
+            var id = button.data('id'); // Extrae los datos del atributo `data-*`
+            var nombre = button.data('nombre');
+            var nempresa = button.data('nempresa');
+            var email = button.data('email');
+            var telefono = button.data('telefono');
+            var direccion = button.data('direccion');
+            var formacompra = button.data('formacompra');
+
+            // Actualiza el contenido del modal con los datos del cliente
+            var modal = $(this);
+            modal.find('#proveedorId').val(id);
+            modal.find('input[name="Nombre"]').val(nombre);
+            modal.find('input[name="NEmpresa"]').val(nempresa);
+            modal.find('input[name="Email"]').val(email);
+            modal.find('input[name="Telefono"]').val(telefono);
+            modal.find('input[name="Direccion"]').val(direccion);
+            modal.find('input[name="FormaCompra"]').val(formacompra);
+        });
+    });
+</script>
+
+
