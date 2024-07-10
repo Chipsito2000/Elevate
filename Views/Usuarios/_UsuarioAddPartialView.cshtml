@@ -1,0 +1,59 @@
+﻿@model ElevateERP.Models.Usuario
+
+<!-- Modal Agregar-->
+<div class="modal fade" id="addUsuario" tabindex="-1" role="dialog" aria-labelledby="addUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUsuarioLabel">Nuevo Colaborador </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form asp-action="Agregar" asp-controller="Usuarios" method="post">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="Control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"> </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="Control-label"> Usuario</label>
+                        <input asp-for="Usuario1" class="form-control" />
+                        <span asp-validation-for="Usuario1" class="text-danger"> </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Clave" class="Control-label"></label>
+                        <input asp-for="Clave" class="form-control" />
+                        <span asp-validation-for="Clave" class="text-danger"> </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="Control-label">Asignar Rol</label>
+                        <select asp-for="IdRol" id=" IdRol" class="form-control">
+                            <option value="">Seleccionar Rol</option>
+                            <option value="1">ADMIN</option>
+                            <option value="2">USUARIO</option>
+                        </select>
+                        <span asp-validation-for="IdRol" class="text-danger"> </span>
+                    </div>                    
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary"> Agregar </button>
+                    </div>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

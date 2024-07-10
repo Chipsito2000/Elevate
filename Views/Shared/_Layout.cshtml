@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/ElevateERP.styles.css" asp-append-version="true" />
     <link href="/css/Nadvar.css" rel="stylesheet">
+    <link id="dark-mode-stylesheet" href="@Url.Content("~/css/Body.css")" rel="stylesheet" disabled />
 
     <!--Script-->
     <script src="~/js/site.js"></script>
+    <script src="~/js/Ajustes.js"></script>
+
 
 
 </head>
@@ -44,7 +47,7 @@
             <img src="~/img/COLABORADORES.png" alt="Colaboradores">
             <span>Colaboradores</span>
         </a>
-        <a class="sidebar-item" asp-action="Ajustes" asp-controller="Ajustes">
+        <a class="sidebar-item" asp-action="Ajustes" asp-controller="Home">
             <img src="~/img/AJUSTES.png" alt="Ajustes">
             <span>Ajustes</span>
         </a>
@@ -62,9 +65,39 @@
     <!-- Contenido de pantalla -->
     <div id="main" class="main">
         @RenderBody()
-    </div>
 
+    </div>
 
 </body>
 
 </html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const darkModeStylesheet = document.getElementById('dark-mode-stylesheet');
+
+        // Check local storage for the dark mode preference
+        if (localStorage.getItem('dark-mode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeStylesheet.removeAttribute('disabled');
+        } else {
+            document.body.classList.remove('dark-mode');
+            darkModeStylesheet.setAttribute('disabled', 'true');
+        }
+
+        // Toggle dark mode on button click
+        darkModeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.classList.remove('dark-mode');
+                darkModeStylesheet.setAttribute('disabled', 'true');
+                localStorage.setItem('dark-mode', 'disabled');
+            } else {
+                document.body.classList.add('dark-mode');
+                darkModeStylesheet.removeAttribute('disabled');
+                localStorage.setItem('dark-mode', 'enabled');
+            }
+        });
+    });
+</script>

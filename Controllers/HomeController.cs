@@ -25,7 +25,11 @@ namespace ElevateERP.Controllers
             return View();
         }
 
-
+        public ActionResult Ajustes()
+        {
+            return View();
+        }
+      
 
         [HttpPost]
         public IActionResult Logout()

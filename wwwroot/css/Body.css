@@ -1,0 +1,11 @@
+﻿
+body {
+    background-color: white;
+    color: black;
+}
+
+    /* Modo oscuro */
+    body.dark-mode {
+        background-color: black;
+        color: cornflowerblue;
+    }

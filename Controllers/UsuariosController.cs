@@ -19,147 +19,56 @@ namespace ElevateERP.Controllers
             _context = context;
         }
 
-        // GET: Usuarios
-        public async Task<IActionResult> Usuario()
+        public ActionResult Usuario()
         {
-            var applicationDbContext = _context.Usuarios.Include(u => u.IdRolNavigation);
-            return View(await applicationDbContext.ToListAsync());
+            List<Usuario> usuarios = _context.Usuarios.ToList();
+            return View(usuarios);
         }
 
-        // GET: Usuarios/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // Acción GET para mostrar el formulario de agregar nuevo usuario
+        public IActionResult Agregar()
         {
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios
-                .Include(u => u.IdRolNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
+           
+            Usuario usuarios = new Usuario();
+            return PartialView("_UsuarioAddPartialView", usuarios);
         }
 
-        // GET: Usuarios/Create
-        public IActionResult Create()
-        {
-            ViewData["IdRol"] = new SelectList(_context.Rols, "Id", "Id");
-            return View();
-        }
-
-        // POST: Usuarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Acción POST para manejar el envío del formulario
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Usuario1,Clave,IdRol")] Usuario usuario)
+        public IActionResult Agregar(Usuario usuarios)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdRol"] = new SelectList(_context.Rols, "Id", "Id", usuario.IdRol);
-            return View(usuario);
+                _context.Usuarios.Add(usuarios);
+                _context.SaveChanges();
+                return RedirectToAction("Usuario");
+            }          
+
+            return PartialView("_UsuarioAddPartialView", usuarios);
         }
 
-        // GET: Usuarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Método para mostrar la vista de actualización
+        public IActionResult Editar(int id)
         {
-            if (id == null)
+            Usuario usuarios = _context.Usuarios.Find(id);
+            if (usuarios == null)
             {
                 return NotFound();
             }
-
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-            ViewData["IdRol"] = new SelectList(_context.Rols, "Id", "Id", usuario.IdRol);
-            return View(usuario);
+            return PartialView("_UsuarioEditPartialView", usuarios);
         }
 
-        // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Método para manejar la solicitud POST de actualización
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Usuario1,Clave,IdRol")] Usuario usuario)
+        public IActionResult Editar(Usuario usuarios)
         {
-            if (id != usuario.Id)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                _context.Usuarios.Update(usuarios);
+                _context.SaveChanges();
+                return RedirectToAction("Usuario");
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsuarioExists(usuario.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdRol"] = new SelectList(_context.Rols, "Id", "Id", usuario.IdRol);
-            return View(usuario);
-        }
-
-        // GET: Usuarios/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuarios
-                .Include(u => u.IdRolNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
-            {
-                _context.Usuarios.Remove(usuario);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UsuarioExists(int id)
-        {
-            return _context.Usuarios.Any(e => e.Id == id);
+            return PartialView("_UsuarioEditPartialView", usuarios);
         }
     }
 }

@@ -33,8 +33,10 @@ using Microsoft.EntityFrameworkCore;
         public virtual DbSet<Rol> Rols { get; set; }
 
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public List<Usuario> usuarios { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer("Name=ElevateERPConnection");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
