@@ -16,7 +16,43 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
+<style>
 
+
+    .vamo {
+        width: auto;
+        height: 400px; /* Altura de ejemplo */
+        overflow: hidden; /* Para evitar el scroll en el contenedor */
+    }
+
+    .table-wrapper {
+        height: 100%;
+        overflow-y: auto; /* Habilitar el scroll vertical para la tabla */
+    }
+
+        .table-wrapper table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table-wrapper thead {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Asegúrate de que el encabezado está por encima del contenido */
+        }
+
+        .table-wrapper .table-primary {
+            background: #9370db;
+        }
+
+        .table-wrapper thead th,
+        .table-wrapper tbody td {
+            border: 1px solid #000;
+        }
+
+</style>
 
 <h1>PROVEEDORES</h1>
 
@@ -33,48 +69,49 @@
     </li>
 </ul>
 
-<div class="table-responsive">
-    <table class="table align-middle">
-        <thead>
-            <tr class="table-primary align-bottom">
-                <th style=" display: none;">@Html.DisplayNameFor(model => model.Id)</th>
-                <th>Accion</th>
-                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-                <th>Empresa</th>
-                <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>@Html.DisplayNameFor(model => model.Telefono)</th>
-                <th>@Html.DisplayNameFor(model => model.Direccion)</th>
-                <th>Forma de Compra</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <button type="button" class="btn edit-button" data-toggle="modal" data-target="#editProveedor" data-id="@item.Id"
-                                data-nombre="@item.Nombre"
-                                data-nempresa="@item.NEmpresa"
-                                data-email="@item.Email"
-                                data-telefono="@item.Telefono"
-                                data-Direccion="@item.Direccion"
-                                data-FormaCompra="@item.FormaCompra"
-                                style="background: none; border: none; padding: 0;">
-                            <img src="~/img/Actualizar.png" alt="Edit" style="width: 24px; height: 24px;">
-                        </button>
-                    </td>
-                    <td class="align-top">@Html.DisplayFor(modelItem => item.Nombre)</td>
-                    <td class="align-top">@Html.DisplayFor(modelItem => item.NEmpresa)</td>
-                    <td class="align-top">@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td class="align-top">@Html.DisplayFor(modelItem => item.Telefono)</td>
-                    <td class="align-top">@Html.DisplayFor(modelItem => item.Direccion)</td>
-                    <td class="align-top">@Html.DisplayFor(modelItem => item.FormaCompra)</td>
+<div class=" vamo">
+    <div class="table-wrapper">
+        <table class="table align-middle">
+            <thead>
+                <tr class="table-primary align-bottom">
+                    <th style=" display: none;">@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>Accion</th>
+                    <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                    <th>Empresa</th>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+                    <th>@Html.DisplayNameFor(model => model.Direccion)</th>
+                    <th>Forma de Compra</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <button type="button" class="btn edit-button" data-toggle="modal" data-target="#editProveedor" data-id="@item.Id"
+                                    data-nombre="@item.Nombre"
+                                    data-nempresa="@item.NEmpresa"
+                                    data-email="@item.Email"
+                                    data-telefono="@item.Telefono"
+                                    data-Direccion="@item.Direccion"
+                                    data-FormaCompra="@item.FormaCompra"
+                                    style="background: none; border: none; padding: 0;">
+                                <img src="~/img/Actualizar.png" alt="Edit" style="width: 24px; height: 24px;">
+                            </button>
+                        </td>
+                        <td class="align-top">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                        <td class="align-top">@Html.DisplayFor(modelItem => item.NEmpresa)</td>
+                        <td class="align-top">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="align-top">@Html.DisplayFor(modelItem => item.Telefono)</td>
+                        <td class="align-top">@Html.DisplayFor(modelItem => item.Direccion)</td>
+                        <td class="align-top">@Html.DisplayFor(modelItem => item.FormaCompra)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-
 @await Html.PartialAsync("_ProveedorAddPartialView", new Proveedor())
 @await Html.PartialAsync("_ProveedorEditPartialView", new Proveedor())
 @* @await Html.PartialAsync("_ProveedorDeletePartialView", new Proveedor())*@

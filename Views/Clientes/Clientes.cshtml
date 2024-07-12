@@ -5,6 +5,45 @@
     ViewData["Title"] = "Clientes";
 }
 
+
+<style>
+
+
+    .vamo {
+        width: auto;
+        height: 400px; /* Altura de ejemplo */
+        overflow: hidden; /* Para evitar el scroll en el contenedor */
+    }
+
+    .table-wrapper {
+        height: 100%;
+        overflow-y: auto; /* Habilitar el scroll vertical para la tabla */
+    }
+
+        .table-wrapper table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table-wrapper thead {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Asegúrate de que el encabezado está por encima del contenido */
+        }
+
+        .table-wrapper .table-primary {
+            background: #9370db;
+        }
+
+        .table-wrapper thead th,
+        .table-wrapper tbody td {
+            border: 1px solid #000;
+        }
+
+</style>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />   
@@ -32,8 +71,8 @@
         </div>
     </li>
 </ul>
-
-<div class="table-responsive">
+<div class=" vamo">
+    <div class="table-wrapper">
     <table class="table align-middle">
         <thead>
             <tr class="table-primary align-bottom">
@@ -44,7 +83,7 @@
                 <th>@Html.DisplayNameFor(model => model.Email)</th>
                 <th>@Html.DisplayNameFor(model => model.Telefono)</th>
                 <th>Forma de Pago</th>
-                <th>CDFI</th>
+                <th>Referencia</th>
             </tr>
         </thead>
         <tbody>
@@ -72,6 +111,7 @@
             }
         </tbody>
     </table>
+</div>
 </div>
 
 @await Html.PartialAsync("_ClientesAddPartialView", new Cliente())

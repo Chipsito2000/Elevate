@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="NEmpresa" class="Control-label"></label>
+                        <label class="Control-label">Empresa</label>
                         <input asp-for="NEmpresa" class="form-control" />
                         <span asp-validation-for="NEmpresa" class="text-danger"> </span>
                     </div>
@@ -48,8 +48,12 @@
                         <span asp-validation-for="Direccion" class="text-danger"> </span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="FormaCompra" class="Control-label"></label>
-                        <input asp-for="FormaCompra" class="form-control" />
+                        <label class="Control-label">Forma de compra</label>
+                        <select asp-for="FormaCompra" id=" FormaPago" class="form-control">
+                            <option value="">Seleccionar</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Efectivo">Efectivo</option>
+                        </select>
                         <span asp-validation-for="FormaCompra" class="text-danger"> </span>
                     </div>
 
