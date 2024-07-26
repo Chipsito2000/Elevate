@@ -1,0 +1,57 @@
+﻿@model IEnumerable<dynamic>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Proveedores con Documentos</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2>Proveedores con Documentos</h2>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="Proveedores" asp-controller="Proveedores" aria-current="page">Proveedores</a>
+            </li>            
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("SubirDocumento", "Documento")">Agregar nuevo documento</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="Proveedores" asp-controller="Proveedores" aria-current="page">Regresar</a>
+            </li>
+        </ul>    
+    </div>
+
+   
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Proveedor</th>
+            <th>Tipo de Documento</th>
+            <th>Nombre del Archivo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var documento in Model)
+        {
+            <tr>
+                <td>@documento.ProveedorNombre</td>
+                <td>@documento.TipoDocumento</td>
+                <td>@documento.FileName</td>
+                <td>
+                    <a asp-action="DescargarDocumento" asp-route-id="@documento.DocumentoId" class="btn btn-primary">Descargar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

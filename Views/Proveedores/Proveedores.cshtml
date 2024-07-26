@@ -67,7 +67,11 @@
             </p>
         </div>
     </li>
-</ul>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("VerDocumento", "Documento")">Documentos</a>
+    </li>
+</ul>                        
+
 
 <div class=" vamo">
     <div class="table-wrapper">
@@ -98,7 +102,7 @@
                                     data-FormaCompra="@item.FormaCompra"
                                     style="background: none; border: none; padding: 0;">
                                 <img src="~/img/Actualizar.png" alt="Edit" style="width: 24px; height: 24px;">
-                            </button>
+                            </button>                        
                         </td>
                         <td class="align-top">@Html.DisplayFor(modelItem => item.Nombre)</td>
                         <td class="align-top">@Html.DisplayFor(modelItem => item.NEmpresa)</td>
@@ -112,9 +116,11 @@
         </table>
     </div>
 </div>
+
 @await Html.PartialAsync("_ProveedorAddPartialView", new Proveedor())
 @await Html.PartialAsync("_ProveedorEditPartialView", new Proveedor())
 @* @await Html.PartialAsync("_ProveedorDeletePartialView", new Proveedor())*@
+
 
 <script>
     $(document).ready(function () {
@@ -139,6 +145,7 @@
             modal.find('input[name="FormaCompra"]').val(formacompra);
         });
     });
-</script>
 
+   
+</script>
 

@@ -19,7 +19,7 @@
         {
             List<Proveedor> proveedor = _context.Proveedors.ToList();
             return View(proveedor);
-        }
+        } 
 
         //Metodo para agregar un cliente
         public IActionResult Agregar()

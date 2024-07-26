@@ -13,18 +13,18 @@ public partial class Documento
     [Required(ErrorMessage = "ID no valido")]
     public int Id { get; set; }
 
-    public int IdCliente { get; set; }
+    public int? IdCliente { get; set; }
 
-    public int IdProveedor { get; set; }
+    public int? IdProveedor { get; set; }
 
-    [Unicode(false)]
-    public string? Contrato { get; set; }
+    [Required(ErrorMessage = "Tipo de documento requerido")]
+    public string? TipoDocumento { get; set; }
 
-    [Unicode(false)]
-    public string? Cotizacion { get; set; }
+    public string? FileName { get; set; }
 
-    [Unicode(false)]
-    public string? Factura { get; set; }
+    public string? ContentType { get; set; }
+
+    public byte[]? Data { get; set; }
 
     [ForeignKey("IdCliente")]
     [InverseProperty("Documentos")]

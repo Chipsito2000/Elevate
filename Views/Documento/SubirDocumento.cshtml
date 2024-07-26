@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Subir Documento";
+    var proveedores = ViewBag.Proveedors as IEnumerable<Proveedor>; // Cast a IEnumerable<Proveedor>
+    var selectList = new SelectList(proveedores, "Id", "Nombre"); // Crea SelectList
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Cargar Documento</h2>
+        <form asp-action="SubirDocumento" asp-controller="Documento" method="post" enctype="multipart/form-data">
+
+            <div class="form-group mb-3">
+                <label for="proveedor">Proveedor</label>
+                <select id="proveedor" name="proveedorId" class="form-control">
+                    @foreach (var item in selectList)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </div>       
+            
+            <div class="form-group mb-3">
+                <label class="Control-label">Tipo de documento</label>
+                <select id=" tipodocumento" name="tipodocumento" class="form-control">
+                    <option value="">Seleccionar</option>
+                    <option value="Cotizacion">Cotizacion</option>
+                    <option value="Factura">Factura</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="archivo">Agregar Documento</label>
+                <input type="file" id="archivo" name="archivo" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+            <button type="submit" class="btn btn-primary mt-2">Guardar Documento</button>
+            </div>
+
+        </form>
+    </div>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
