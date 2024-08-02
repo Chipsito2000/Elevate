@@ -28,20 +28,25 @@
                 //toma la sesion
                 oUsuario = filterContext.HttpContext.Session.GetObject<Usuario>("User");
 
-                //Filtra la sesion para dar seguridad
+                //Filtra la sesion 
                 if (oUsuario == null)
                 {
-                     if(filterContext.Controller is LoginController == false)
+                    //if(filterContext.Controller is LoginController == false)
+                    //{
+                    //   filterContext.HttpContext.Response.Redirect("/Login/Login");
+                    //}
+                    if (filterContext.Controller is not LoginController)
                     {
-                        filterContext.HttpContext.Response.Redirect("/Login/Login");
+                        filterContext.Result = new RedirectToActionResult("Login", "Login", null);
                     }
                 }
-
 
             }
             catch (Exception)
             {
-                filterContext.Result = new RedirectResult("~/Login/Login");
+                //filterContext.Result = new RedirectResult("~/Login/Login");
+                filterContext.Result = new RedirectToActionResult("Login", "Login", null);
+
             }
         }       
     }

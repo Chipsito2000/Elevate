@@ -5,51 +5,60 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region Alta de filtro
+
 builder.Services.AddControllersWithViews(options =>
 {
-    options.Filters.Add(new VerificacionSession());
+    options.Filters.Add<VerificacionSession>();
+
 });
 
-//cadena de conexion a la bdd
+
+#endregion
+
+#region cadena de conexion
+
 var connectionString = builder.Configuration.GetConnectionString("ElevateERPConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+#endregion
 
+
+// Memoria en cache
 builder.Services.AddDistributedMemoryCache();
-/// Creamos el servicio de sesión
+
+#region Creacion de vida de la sesión
+
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.IdleTimeout = TimeSpan.FromMinutes(20); // Tiempo de expiración de la sesión
     options.Cookie.HttpOnly = true; // Asegura que la cookie no sea accesible desde el cliente
     options.Cookie.IsEssential = true; // Asegura que la cookie se mantenga aunque el usuario no acepte las cookies
 });
 
-//Si no esta autenticado te mapea a el login
+#endregion
+
+#region esquema de region
+
 builder.Services.AddAuthentication("MyCookieAuthenticationScheme")
     .AddCookie("MyCookieAuthenticationScheme", options =>
     {
         options.LoginPath = "/Login/Login";
     });
 
-//agregamos la Session
+#endregion
+
+//Vida de la sesion
 builder.Services.AddScoped<VerificacionSession>();
 
-//// Configurar filtros de acción globalmente
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add(new VerificacionSession());
-});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -60,7 +69,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // Agrega el middleware de sesión aquí
-app.UseSession(); 
+app.UseSession();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

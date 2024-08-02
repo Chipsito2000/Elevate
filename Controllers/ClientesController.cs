@@ -25,13 +25,16 @@
             _context = context;
         }
 
+        [VerificacionSession]
+        [Validar_Permiso(2)]
         public ActionResult Clientes()
         {
             List<Cliente> clientes = _context.Clientes.ToList();
             return View(clientes);
         }
 
-
+        [VerificacionSession]
+        [Validar_Permiso(3)]
         public IActionResult Agregar()
         {
             Cliente cliente = new Cliente();
@@ -50,7 +53,8 @@
             return PartialView("_ClientesAddPartialView", cliente);
         }
 
-
+        [VerificacionSession]
+        [Validar_Permiso(4)]
         // Método para mostrar la vista de actualización
         public IActionResult Editar(int id)
         {

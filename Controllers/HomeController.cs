@@ -24,9 +24,11 @@ namespace ElevateERP.Controllers
 
         }
 
+        [VerificacionSession]
+        [Validar_Permiso(1)]
         public ActionResult Index()
         {
-            //GET para datos  de dashboard
+            //salida de informacion para datos  de dashboard
             var numClientes = _context.Clientes.Count();
             var numProveedores = _context.Proveedors.Count();
             ViewBag.NumClientes = numClientes;
@@ -34,12 +36,14 @@ namespace ElevateERP.Controllers
             return View();
         }
 
+       
         public ActionResult Ajustes()
         {
             return View();
         }
-      
 
+        [VerificacionSession]
+        [Validar_Permiso(15)]
         [HttpPost]
         public IActionResult Logout()
         {

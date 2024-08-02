@@ -2,6 +2,7 @@
 {
 
     using ElevateERP.Data;
+    using ElevateERP.Filtro;
     using ElevateERP.Models;
     using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +16,17 @@
             _context = context;
         }
 
+        [VerificacionSession]
+        [Validar_Permiso(7)]
         public ActionResult Proveedores()
         {
             List<Proveedor> proveedor = _context.Proveedors.ToList();
             return View(proveedor);
-        } 
+        }
 
         //Metodo para agregar un cliente
+        [VerificacionSession]
+        [Validar_Permiso(8)]
         public IActionResult Agregar()
         {
             Proveedor proveedor = new Proveedor();
@@ -42,6 +47,8 @@
 
 
         // Método para mostrar la vista de actualización
+        [VerificacionSession]
+        [Validar_Permiso(9)]
         public IActionResult Editar(int id)
         {
             Proveedor proveedor = _context.Proveedors.Find(id);

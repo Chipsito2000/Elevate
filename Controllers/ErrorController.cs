@@ -5,7 +5,7 @@ namespace ElevateERP.Controllers
     public class ErrorController : Controller
     {
         [HttpGet]
-        public ActionResult NoAutorizado(string accion, string pantalla, string msjErrorPermiso)
+        public ActionResult ErrorOperacion(string accion, string pantalla, string msjErrorPermiso)
         {
             ViewBag.Accion = accion;
             ViewBag.Pantalla = pantalla;

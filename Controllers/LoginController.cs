@@ -1,6 +1,8 @@
 ﻿namespace ElevateERP.Controllers
 {
+    using ElevateERP.Data;
     using ElevateERP.Filtro;
+    using ElevateERP.Models;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -8,7 +10,15 @@
     using System.Text.Json;
 
     public class LoginController : Controller
-    {                
+    {            
+        
+        private readonly ApplicationDbContext _context;
+
+        public LoginController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         /// <summary>
         /// Redireccion a vista login
         /// </summary>
@@ -32,17 +42,19 @@
             //validacion
             try
             {
-                //validamos el modelo con el de la conexion a la bdd
-                using (Models.ElevateErpContext dbo = new Models.ElevateErpContext())
-                {
+                
                     //consulta de usuario
                     var oUsuario = (from d 
-                                    in dbo.Usuarios 
+                                    in _context.Usuarios 
                                     where d.Usuario1 == User.Trim() && d.Clave == Clave.Trim() 
                                     select d).FirstOrDefault();
 
-                    //Usuario no encontrado
-                    if (oUsuario == null)
+
+                    if (oUsuario != null)
+                    {
+                        // Almacenar el usuario en la sesión
+                        HttpContext.Session.SetObject("User", oUsuario);
+                    }else 
                     {
                         //Error
                         ViewBag.Error(" No existe el usuario");
@@ -50,7 +62,6 @@
 
                     }
 
-                    HttpContext.Session.SetObject("User", oUsuario);
 
                     var claims = new List<Claim>
                     {
@@ -63,13 +74,13 @@
                     await HttpContext.SignInAsync("MyCookieAuthenticationScheme", new ClaimsPrincipal(claimsIdentity), authProperties);
 
 
-                }
+                
                 //Si existe redirige a pagina principal
                 return (RedirectToAction("index", "Home"));
 
             }
             //Si no es asi manda error
-            catch (Exception ex)
+            catch (Exception )
             {
                 ViewBag.Error = "No se reconoce el usuario"; 
                 return View();

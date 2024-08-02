@@ -12,12 +12,12 @@
     /// Filtro para validar los permisos de usuario
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple =false)]
-    public class Validar_Permiso : AuthorizeAttribute
+    public class Validar_Permiso : AuthorizeAttribute, IAuthorizationFilter
     {
       
         //Crreacion de objetos, conexion y variables
-        private Usuario oUsuario;        
-        private ElevateErpContext dbo = new ElevateErpContext();
+        private Usuario oUsuario;
+        private readonly ElevateErpContext _context;
         private int idAccion;
 
 
@@ -25,9 +25,11 @@
         /// Aasigna la variable en el constructor de la clase
         /// </summary>
         /// <param name="idAccion"></param>
-        public Validar_Permiso (int idAccion = 0)
+        public Validar_Permiso (int idAccion)
         {
             this.idAccion = idAccion;
+            _context = new ElevateErpContext();
+
         }
 
         /// <summary>
@@ -45,14 +47,14 @@
                 //Tomamos la sesion creada al iniciar sesion
                 oUsuario = filterContext.HttpContext.Session.GetObject<Usuario>("User");
 
-                //// Validacion de autenticacion
-                //if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
-                //{
-                //    filterContext.Result = new RedirectToActionResult("Login", "Login", null);
-                //    return;
-                //}
+                // Validacion de autenticacion
+                if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    filterContext.Result = new RedirectToActionResult("Login", "Login", null);
+                    return;
+                }
 
-               
+
 
                 //validacion de usuario existente
                 if (oUsuario == null)
@@ -62,25 +64,26 @@
                 }
 
                 //consulta para validar permisos de usuario
-                var listPermiso = (from P in dbo.Permisos
+                var listPermiso = (from P in _context.Permisos
                                    where P.IdRol == oUsuario.IdRol && P.IdAccion == idAccion
                                    select P);
 
                 //sentencia para permisos
                 if (listPermiso.ToList().Count == 0)
                 {
-                    var oAccion = dbo.Accions.Find(idAccion);
+                    var oAccion = _context.Accions.Find(idAccion);
                     int? idPantalla = oAccion?.IdPantalla;
                     NombreAccion = GetNombreAccion(idAccion);
                     NombrePantalla = GetNombrePantalla(idPantalla);
 
-                    filterContext.Result = new RedirectResult("~/Error/ErrorOperacion?Accion=" + NombreAccion);
+                    filterContext.Result = new RedirectToActionResult("ErrorOperacion", "Error", null);
+
                 }
 
             }
             catch (Exception)
             {
-                filterContext.Result = new RedirectResult("~/Error/ErrorOperacion?Accion=" + NombreAccion);
+                filterContext.Result = new RedirectToActionResult("ErrorOperacion", "Error", null);
             }
         }
 
@@ -92,21 +95,14 @@
         /// <returns></returns>
         public string GetNombreAccion(int idAccion)
         {
-            //Consultar el nombre de la accion Lmbda
-            var accion = from a in dbo.Accions
-                         where a.Id == idAccion
-                         select a.Accion1;
-
             //validar la accion
-            try
-            {   //Si tiene la muestra 
-                return accion.First();
-            }
-            catch (Exception)
-            {
-                //Si no tiene no muestra nada
-                return " ";
-            }
+            var accion = _context.Accions
+                             .Where(a => a.Id == idAccion)
+                             .Select(a => a.Accion1)
+                             .FirstOrDefault();
+
+            return accion ?? " ";
+
         }
 
 
@@ -117,21 +113,16 @@
         /// <returns></returns>
         public string GetNombrePantalla(int? idPantalla)
         {
-            //Consultar el nombre de la accion Lmbda
-            var Pantalla = from Pa in dbo.Pantallas
-                           where Pa.Id == idPantalla
-                           select Pa.NPantalla;
 
             //validar la accion
-            try
-            {   //muestra la pantalla
-                return Pantalla.First();
-            }
-            catch (Exception)
-            {
-                //No muestra nada
-                return " ";
-            }
+            if (idPantalla == null) return " ";
+
+            var pantalla = _context.Pantallas
+                                   .Where(pa => pa.Id == idPantalla)
+                                   .Select(pa => pa.NPantalla)
+                                   .FirstOrDefault();
+
+            return pantalla ?? " ";
         }
     }
 }

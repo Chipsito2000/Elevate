@@ -1,0 +1,104 @@
+﻿@model IEnumerable<dynamic>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Documentos de los Proveedores</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+</head>
+
+<style>
+
+
+    .vamo {
+        width: auto;
+        height: 400px; /* Altura de ejemplo */
+        overflow: hidden; /* Para evitar el scroll en el contenedor */
+    }
+
+    .table-wrapper {
+        height: 100%;
+        overflow-y: auto; /* Habilitar el scroll vertical para la tabla */
+    }
+
+        .table-wrapper table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table-wrapper thead {
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Asegúrate de que el encabezado está por encima del contenido */
+        }
+
+        .table-wrapper .table-primary {
+            background: #9370db;
+        }
+
+        .table-wrapper thead th,
+        .table-wrapper tbody td {
+            border: 1px solid #000;
+        }
+
+</style>
+
+
+
+<body>
+    <div class="container mt-4">
+        <h2>Proveedores con Documentos</h2>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="Proveedores" asp-controller="Proveedores" aria-current="page">Proveedores</a>
+            </li>            
+            <li class="nav-item">
+                <button type="button" class="btn btn-transparent" onclick="window.location.href='@Url.Action("SubirDocumento", "Documento")'">
+                    Agregar nuevo documento
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-transparent" onclick="window.location.href='@Url.Action("Proveedores", "Proveedores")'">
+                    Regresar
+                </button>
+            </li>
+        </ul>    
+    </div>
+
+
+
+
+    <div class=" vamo">
+        <div class="table-wrapper">
+            <table class="table align-middle">
+                <thead>
+                    <tr class="table-primary align-bottom">
+                        <th>Proveedor</th>
+                        <th>Tipo de Documento</th>
+                        <th>Nombre del Archivo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var documento in Model)
+                    {
+                        <tr>
+                            <td>@documento.ProveedorNombre</td>
+                            <td>@documento.TipoDocumento</td>
+                            <td>@documento.FileName</td>
+                            <td>
+                                <a asp-action="DescargarDocumento" asp-route-id="@documento.DocumentoId" class="btn btn-primary">Descargar</a>
+                            </td>
+                        </tr>
+                    }
+            </table>
+        </div>
+    </div>
+
+
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
